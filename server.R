@@ -23,7 +23,7 @@ server <- function(input, output, session) {
 
 
 
-  #  Observer for TFI Status plots
+  #  Observer for TFI Status plots ----
   observe({
     tfiFiltered <- TFI %>%
       filter(SEASON %in% input$SEASONS[1]:input$SEASONS[2]) %>%
@@ -68,7 +68,7 @@ server <- function(input, output, session) {
     tfiOverall <- tfiFiltered %>%
       group_by(TFI_STATUS, SEASON) %>%
       summarise(Hectares = sum(Hectares, na.rm = T))
-
+  # TFI status plot ----
     tfiPlot <- tfiFiltered %>%
       {
         if (input$SEASONS[1] < input$SEASONS[2]) {
@@ -92,7 +92,7 @@ server <- function(input, output, session) {
         axis.text = element_text(size = 12),
         axis.title = element_text(size = 14)
       )
-
+    # TFI status  overall summary plot ----
     tfiOverallPlot <- ggplot(tfiOverall, aes(x = SEASON, y = Hectares, fill = TFI_STATUS)) +
       geom_col(position = "fill") +
       tfiScale() +
@@ -294,7 +294,7 @@ server <- function(input, output, session) {
 
     rv$spChoices <- sort(unique(rv$sppSumm$COMMON_NAME))
     
-
+    # delta RA  plot ----
     deltaRAPlot <- rv$sppSumm %>%
       filter(COMMON_NAME %in% input$raSpChoices) %>%
       ggplot() +
@@ -314,13 +314,14 @@ server <- function(input, output, session) {
       output$deltaRAPlot <- renderPlot(NULL)
       output$deltaRAPlotText<-renderText("Select species to show trends")
     }
-
-    gma <<-
+  # GMRA calculation ----
+    gma <-
       rv$sppSumm %>%
       # drop_na() %>%
       group_by(SEASON) %>%
       summarise(GMRA = geoMean(deltaRA)) %>%
       ungroup()
+    
     rv$gma <- gma
     if (nrow(rv$gma) > 0) {
       output$gmaTitle <- renderText(paste(
@@ -338,6 +339,7 @@ server <- function(input, output, session) {
       #   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),text = element_text(size=16))
 
       # summary page plot of GMRA and number of species below threshold
+      #GMRA and count of number os species declining plot ----
       gmaPlot <- plot_ly(data = belowThreshSummLong) %>%
         add_bars(
           data = belowThreshSummLong,
@@ -356,7 +358,7 @@ server <- function(input, output, session) {
         ) %>%
         layout(
           barmode = "stack",
-          yaxis = list(title = "Number species below threshold"),
+          yaxis = list(title = "Number species below threshold",rangemode="tozero"),
           yaxis2 = list(overlaying = "y", side = "right", automargin = T, title = "GMRA"),
           xaxis = list(title = "Fire Year")
         )
