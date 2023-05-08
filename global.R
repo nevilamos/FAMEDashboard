@@ -21,18 +21,7 @@ thematic::thematic_shiny()
 #'
 #' @return numeric or NA if values are not all > 0
 #' @export
-geoMean <- function(x) {
-  if (any(is.na(x))) {
-    y <- NA
-    warning("vector contains NA values")
-  } else if (any(x <= 0)) {
-    y <- NA
-    warning("Not all x are positive values")
-  } else {
-    y <- prod(x)^(1 / length(x))
-  }
-  return(y)
-}
+
 
 
 
@@ -44,25 +33,11 @@ tfiLevels <- c(
   "BELOW_MIN_TFI"
 )
 
-tfiScale <- function(...) {
-  ggplot2:::manual_scale("fill",
-    values = setNames(
-      c(
-        "grey80",
-        "grey60",
-        "blue4",
-        "deepskyblue2",
-        "orange1"
-      ),
-      tfiLevels
-    )
-  )
-}
 
-# reads in data ( from FAME v3  qs file)
+# reads in data ( from FAME qs file)
 # library(qs)
 
-myDataList <- qread("../FameShiny/FH_Outputs/75mwith5spDashboardDemo.qs") # "./data/DashboardSessionDumpAllSpeciesDefaultEOWholeStateFHwith1755.qs")
+myDataList <- qread("./data/DashbaordDemo.qs") 
 TFI <- myDataList$TFI %>%
   ungroup() %>%
   mutate(TFI_STATUS = as.character(TFI_STATUS)) %>%
