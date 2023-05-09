@@ -37,7 +37,7 @@ tfiLevels <- c(
 # reads in data ( from FAME qs file)
 # library(qs)
 
-myDataList <- qread("./data/DashbaordDemo.qs") 
+myDataList <- qread("./data/DashboardDemo.qs") 
 TFI <- myDataList$TFI %>%
   ungroup() %>%
   mutate(TFI_STATUS = as.character(TFI_STATUS)) %>%
