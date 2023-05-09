@@ -8,13 +8,15 @@ ui <- fluidPage(
   fluidRow(
     column(
       width = 2,
+      actionButton(inputId = "LoadDataFile",label = "Load Data File"),
       selectInput(
         inputId = "DELWP_REGION",
         label = "DELWP REGION OR STATE",
         choices = c(
           "ALL",
           delwpRegions
-        )
+        ),
+        selected = "ALL"
       ),
       selectInput(
         inputId = "FIRE_REGION",
@@ -22,7 +24,8 @@ ui <- fluidPage(
         choices = c(
           "ALL",
           fireRegions
-        )
+        ),
+        selected = "ALL"
       ),
       selectInput(
         inputId = "FIRE_DISTRICT",
@@ -30,7 +33,8 @@ ui <- fluidPage(
         choices = c(
           "ALL",
           fireDistricts
-        )
+        ),
+        selected = "ALL"
       ),
       selectInput(
         inputId = "FMZ",
@@ -38,7 +42,8 @@ ui <- fluidPage(
         choices = c(
           "ALL",
           fireFMZ
-        )
+        ),
+        selected = "ALL"
       ),
       selectInput(
         inputId = "EFG_NAME",
@@ -46,7 +51,8 @@ ui <- fluidPage(
         choices = c(
           "ALL EFG",
           efgNames
-        )
+        ),
+        selected = "ALL"
       ),
       sliderInput("SEASONS",
         label = "Min and Max Season to plot",
