@@ -8,6 +8,8 @@ ui <- fluidPage(
   fluidRow(
     column(
       width = 2,
+      selectFileUI(id = "selectInputData",label = "Select Input Data from FAME"),
+      textOutput("myDataPath"),
       actionButton(inputId = "LoadDataFile",label = "Load Data File"),
       selectInput(
         inputId = "DELWP_REGION",
@@ -49,7 +51,7 @@ ui <- fluidPage(
         inputId = "EFG_NAME",
         label = "EFG SELECTION",
         choices = c(
-          "ALL EFG",
+          "ALL",
           efgNames
         ),
         selected = "ALL"
@@ -166,15 +168,17 @@ ui <- fluidPage(
           textOutput("deltaRAPlotText"),
           plotOutput("deltaRAPlot", width = "100%", height = 700)
         )
-        # ,
-        #
-        # tabPanel(
-        #     "Tables",
-        #     h4("Miscellaneous output tables",align = "center"),
-        #     h5("Number of species below threshold by year"),
-        #     tableOutput("belowThreshTable")
-        #
-        # )
+        ,
+
+        tabPanel(
+            "Tables",
+            # h4("Miscellaneous output tables",align = "center"),
+            # h5("Number of species below threshold by year"),
+            # tableOutput("belowThreshTable")
+            tableOutput("table1"),
+            textOutput("table2")
+
+        )
       )
     )
   )
