@@ -3,7 +3,7 @@ server <- function(input, output, session) {
   
   # read in data , process to find possible values of filter fields and update UI as required----
   #myInData <- selectFileServer(id = "selectInputData",root_dirs = c(data = "./data"),filetypes = "qs" )
-  myInData<-selectFileServer(id = "selectInputData",root_dirs = c(data = "./data"),filetypes = "qs" )
+  myInData<-selectFileServer(id = "selectInputData",root_dirs = c(home = ".."),filetypes = "qs" )
   observe(rv$myDataPath<-myInData$datapath)
   output$myDataPath<-renderText(rv$myDataPath)
   observeEvent(input$LoadDataFile, ignoreInit = T, {
