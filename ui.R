@@ -1,4 +1,5 @@
-ui <- fluidPage(
+ui <- 
+                      fluidPage(title = "FAME Dashboard",
   theme = bs_theme(bootswatch = "flatly"),
   useShinydashboard(),
   # Application title
