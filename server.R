@@ -14,13 +14,16 @@ server <- function(input, output, session) {
     delwpRegions <- sort(unique(inData$TFI$DELWP_REGION))
     
     fireFMZ <- sort(unique(inData$TFI$FIRE_FMZ_NAME))
-    fireDistricts <- sort(unique(inData$TFI$DISTRICT_N))
+    fireDistricts <- levels(sort(unique(inData$TFI$DISTRICT_N)))
     spNames <- sort(unique(inData$RA$COMMON_NAME))
     
     updateSelectInput(session,
                       inputId = "FIRE_REGION",
                       choices = c("ALL", fireRegions))
-    #updateSelectInput(session, inputId = "FIRE_DISTRICT", choices = c("ALL",fireDistricts))
+    if (!is.null(fireDistricts)){
+      updateSelectInput(session,
+                        inputId = "FIRE_DISTRICT",
+                        choices = c("ALL",fireDistricts))}
     updateSelectInput(session,
                       inputId = "DELWP_REGION",
                       choices = c("ALL", delwpRegions))
